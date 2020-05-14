@@ -27,12 +27,12 @@ jobs:
         # Pylint hepdata_lib
         - name: Pylint hepdata_lib files
           run: |       
-            python -m pip install -e .
             python -m pylint hepdata_lib/*.py
             
         # Pylint tests
         - name: Pylint test files
           run: |     
+            python -m pip install -e .
             python -m pylint tests/*.py --rcfile=tests/pylintrc
 
  # This is a job for macOS python3 tests
