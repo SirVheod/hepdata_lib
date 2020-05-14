@@ -64,7 +64,7 @@ jobs:
       - name: Run pytest
         run: |
           echo ${PYTHONPATH}
-          python3 -m setup.py test
+          python3 setup.py test
           
       # Pylint hepdata_lib
       - name: Pylint hepdata_lib files
