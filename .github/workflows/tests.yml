@@ -64,6 +64,7 @@ jobs:
       # Run pytest
       - name: Run pytest
         run: |
+          python -m pip install -e .
           python3 setup.py test
           
       # Pylint hepdata_lib
@@ -104,6 +105,7 @@ jobs:
     # Run pytest
     - name: Run pytest
       run: |
+        python -m pip install -e .
         python setup.py test
         
     # Pylint hepdata_lib
