@@ -72,8 +72,7 @@ jobs:
           
       # Pylint tests
       - name: Pylint test files
-        run: |  
-          python3 -m pip install -e .        
+        run: |        
           python3 -m pylint tests/*.py --rcfile=tests/pylintrc
 
  # This is a job for linux python2.7 tests
