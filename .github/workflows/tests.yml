@@ -16,6 +16,7 @@ jobs:
             yum install -y python-pip ghostscript
             python -m pip install pytest_pylint configparser astroid pyyml papermill
             python -m pip install -e .
+            jupyter nbconvert [--execute] --to html ./examples/read_c_files.ipynb
             python setup.py test
             python -m pip install -e .
             python -m pylint hepdata_lib/*.py
