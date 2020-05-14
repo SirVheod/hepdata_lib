@@ -52,6 +52,10 @@ jobs:
           tar xzf root-v${ROOT_VERSION}.tar.gz
           mkdir -p /usr/local/Cellar/root
           mv ${ROOT_VERSION} /usr/local/Cellar/root/
+          
+      # Run pytest
+      - name: Run pytest
+        run: |
           cd /usr/local/Cellar/root/${ROOT_VERSION}
           export PATH=${PWD}/bin:$(brew --cellar python@3.8)/$(ls $(brew --cellar python@3.8))/bin:${PATH}
           export PYTHONPATH=${PWD}/lib/root:${PYTHONPATH}
@@ -59,11 +63,6 @@ jobs:
           echo ${PYTHONPATH}
           cd -
           python3 -m pip install pytest ipykernel papermill
-          
-      # Run pytest
-      - name: Run pytest
-        run: |
-          echo ${PYTHONPATH}
           python3 setup.py test
           
       # Pylint hepdata_lib
