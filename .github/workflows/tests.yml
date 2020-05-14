@@ -24,6 +24,12 @@ jobs:
             python -m pip install -e .
             python setup.py test
             
+        # Run notebook tests
+        - name: Run pytest
+          run: |
+            python -m pip install -e .
+            pytest -v tests/test_notebooks.py        
+            
         # Pylint hepdata_lib
         - name: Pylint hepdata_lib files
           run: |
