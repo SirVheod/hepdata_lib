@@ -60,11 +60,11 @@ jobs:
           echo ${PYTHONPATH}
           cd -
           python3 -m pip install pytest ipykernel papermill
+          python -m pip install -e .
           
       # Run pytest
       - name: Run pytest
         run: |
-          python -m pip install -e .
           python3 setup.py test
           
       # Pylint hepdata_lib
@@ -101,11 +101,11 @@ jobs:
         sudo apt update
         sudo apt install -y ghostscript
         source root/bin/thisroot.sh
+        python -m pip install -e .
 
     # Run pytest
     - name: Run pytest
       run: |
-        python -m pip install -e .
         python setup.py test
         
     # Pylint hepdata_lib
