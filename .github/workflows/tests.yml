@@ -26,7 +26,8 @@ jobs:
             
         # Pylint hepdata_lib
         - name: Pylint hepdata_lib files
-          run: |       
+          run: |
+            python -m pip install -e .
             python -m pylint hepdata_lib/*.py
             
         # Pylint tests
@@ -68,12 +69,12 @@ jobs:
       # Pylint hepdata_lib
       - name: Pylint hepdata_lib files
         run: |    
-          python3 -m pip install -e .
           python3 -m pylint hepdata_lib/*.py
           
       # Pylint tests
       - name: Pylint test files
-        run: |        
+        run: |
+          python -m pip install -e .
           python3 -m pylint tests/*.py --rcfile=tests/pylintrc
 
  # This is a job for linux python2.7 tests
