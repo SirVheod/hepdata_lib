@@ -7,6 +7,8 @@ jobs:
   # This is a job for linux python3 tests
   linuxpy3:
       runs-on: [ubuntu-18.04]
+      strategy:  
+        fail-fast: false
       container:
           image: 'rootproject/root:latest'
       steps:
@@ -19,7 +21,7 @@ jobs:
             python -m pip install pytest_pylint configparser astroid pyyml papermill nbconvert
             
         # Run pytest
-        - name: Test hepdata_lib
+        - name: Run pytest
           run: |
             python -m pip install -e .
             python setup.py test
@@ -38,6 +40,8 @@ jobs:
  # This is a job for macOS python3 tests
   macospy3:
     runs-on: macos-latest
+    strategy:  
+      fail-fast: false
     steps:
       - uses: actions/checkout@v2
         
@@ -59,10 +63,14 @@ jobs:
           echo ${PYTHONPATH}
           cd -
           python3 -m pip install pytest ipykernel papermill
+          
       # Run pytest
-      - name: Test hepdata_lib
+      - name: Run pytest
         run: |
-          python3 -m pip install -e .
+          export PATH=${PWD}/bin:$(brew --cellar python@3.8)/$(ls $(brew --cellar python@3.8))/bin:${PATH}
+          export PYTHONPATH=${PWD}/lib/root:${PYTHONPATH}
+          export LD_LIBRARY_PATH=${PWD}/lib/root:${LD_LIBRARY_PATH}
+          echo ${PYTHONPATH}
           python3 -m setup.py test
           
       # Pylint hepdata_lib
@@ -79,6 +87,8 @@ jobs:
  # This is a job for linux python2.7 tests
   linuxpy27:
     runs-on: ubuntu-16.04
+    strategy:  
+      fail-fast: false
     steps:
     - uses: actions/checkout@v2
       
@@ -99,7 +109,7 @@ jobs:
         sudo apt install -y ghostscript
         
     # Run pytest
-    - name: Test hepdata_lib
+    - name: Run pytest
       run: |
         source root/bin/thisroot.sh
         python setup.py test
