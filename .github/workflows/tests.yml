@@ -143,7 +143,7 @@ jobs:
     - name: Save notebooks
       if: always()
       run: |
-        ipython nbconvert --to html examples/*.ipynb
+        jupyter nbconvert --to html examples/*.ipynb
 
     # Upload notebooks
     - name: Upload notebooks
