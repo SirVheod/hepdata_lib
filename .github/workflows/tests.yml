@@ -91,7 +91,9 @@ jobs:
       - name: Run Pylint
         if: always()
         run: |
-          python3 -m pip install pytest ipykernel papermill
+          python3 -m pip install ipykernel
+          python3 -m ipykernel install --user
+          python3 -m pip install pytest papermill
           python3 -m pip install -e .
           python3 -m pylint hepdata_lib/*.py
           python3 -m pylint tests/*.py --rcfile=tests/pylintrc
@@ -129,8 +131,8 @@ jobs:
       run: |
         export PATH=$PATH:~/.local/bin
         source ~/.bash_profile
-        python -m pip install ipykernel
-        python -m ipykernel install --user
+        python3 -m pip install ipykernel
+        python3 -m ipykernel install --user
         python -m jupyter nbconvert --to html --execute examples/*.ipynb
     # Upload notebooks
     - name: Upload notebooks
