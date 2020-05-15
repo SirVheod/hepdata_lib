@@ -138,7 +138,7 @@ jobs:
       run: |
         export PATH=$PATH:~/.local/bin
         source ~/.bash_profile
-        python -m IPython notebook nbconvert --to html --execute examples/*.ipynb
+        jupyter nbconvert --kernel_name=python2 --to html --execute examples/*.ipynb
 
     # Upload notebooks
     - name: Upload notebooks
