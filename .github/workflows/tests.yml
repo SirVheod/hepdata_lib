@@ -86,6 +86,7 @@ jobs:
       - name: Save notebooks
         if: always()
         run: |
+          python3 -m pip install nbconvert
           jupyter nbconvert --to html examples/*.ipynb
 
       # Upload notebooks
@@ -128,7 +129,7 @@ jobs:
         sudo sed -i '/MVG/d' /etc/ImageMagick-6/policy.xml
         sudo sed -i '/PDF/{s/none/read|write/g}' /etc/ImageMagick-6/policy.xml
         sudo sed -i '/PDF/ a <policy domain="coder" rights="read|write" pattern="LABEL" />' /etc/ImageMagick-6/policy.xml
-        python -m pip install --upgrade enum34 pytest_pylint configparser astroid future ipykernel papermill
+        python -m pip install --upgrade enum34 pytest_pylint configparser astroid future ipykernel papermill nbconvert
         sudo apt update
         sudo apt install -y ghostscript
         
@@ -142,7 +143,7 @@ jobs:
     - name: Save notebooks
       if: always()
       run: |
-        jupyter nbconvert --to html examples/*.ipynb
+        ipython nbconvert --to html examples/*.ipynb
 
     # Upload notebooks
     - name: Upload notebooks
