@@ -80,7 +80,7 @@ jobs:
           python3 -m pip install jupyter_client ipykernel nbconvert
           python3 -m ipykernel install --user
           python3 -m pip install -e .
-          python3 -m jupyter nbconvert --to html --execute examples/*.ipynb
+          python3 jupyter nbconvert --to html --execute examples/*.ipynb
           
       # Upload notebooks
       - name: Upload notebooks
@@ -133,10 +133,7 @@ jobs:
       run: |
         export PATH=$PATH:~/.local/bin
         source ~/.bash_profile
-        sudo apt-get upgrade python3
-        python3 -m pip install wheel ipykernel
-        python3 -m ipykernel install --user
-        python -m jupyter nbconvert --to html --execute examples/*.ipynb
+        python jupyter nbconvert --to html --execute examples/*.ipynb
 
     # Upload notebooks
     - name: Upload notebooks
