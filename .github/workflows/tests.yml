@@ -30,10 +30,12 @@ jobs:
           run: |
             jupyter nbconvert --to html examples/*.ipynb
 
+        # Upload notebooks
         - name: Upload notebooks
+          if: always()
           uses: actions/upload-artifact@v2
           with:
-            name: notebooks
+            name: notebooks py3
             path: examples/*.html
 
         # Pylint hepdata_lib
@@ -80,12 +82,27 @@ jobs:
           python3 -m pip install pytest ipykernel papermill
           python3 setup.py test
           
+      # Save notebooks
+      - name: Save notebooks
+        if: always()
+        run: |
+          jupyter nbconvert --to html examples/*.ipynb
+
+      # Upload notebooks
+      - name: Upload notebooks
+        if: always()
+        uses: actions/upload-artifact@v2
+        with:
+          name: notebooks macOS
+          path: examples/*.html
+          
       # Pylint hepdata_lib
       - name: Run Pylint
         if: always()
         run: |    
           python3 -m pip install -e .
           python3 -m pylint hepdata_lib/*.py
+
       # Pylint tests
       - name: Pylint test files
         if: always()
@@ -120,6 +137,20 @@ jobs:
       run: |
         source root/bin/thisroot.sh
         python setup.py test
+        
+    # Save notebooks
+    - name: Save notebooks
+      if: always()
+      run: |
+        jupyter nbconvert --to html examples/*.ipynb
+
+    # Upload notebooks
+    - name: Upload notebooks
+      if: always()
+      uses: actions/upload-artifact@v2
+      with:
+        name: notebooks py27
+        path: examples/*.html
         
     # Pylint hepdata_lib
     - name: Pylint hepdata_lib files
