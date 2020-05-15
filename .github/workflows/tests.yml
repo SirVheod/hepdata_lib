@@ -75,18 +75,14 @@ jobs:
           cd -
           python3 -m pip install pytest ipykernel papermill jupyter_client nbconvert
           python3 setup.py test
-          jupyter kernelspec list
-          python3 -m jupyter nbconvert --to html --execute examples/*.ipynb
           
       # Save notebooks
       - name: Save notebooks
         if: always()
         run: |
-          echo ${PYTHONPATH}
-          python3 -m pip install jupyter_client ipykernel nbconvert
-          python3 -m ipykernel install --user
           python3 -m pip install -e .
-          python3 jupyter nbconvert --to html --execute examples/*.ipynb
+          jupyter kernelspec list
+          python3 -m jupyter nbconvert --ExecutePreprocessor.timeout=600 --ExecutePreprocessor.kernel_name=python3 --ExecutePreprocessor.allow_errors=True --to html --execute examples/*.ipynb
           
       # Upload notebooks
       - name: Upload notebooks
@@ -139,8 +135,9 @@ jobs:
       run: |
         export PATH=$PATH:~/.local/bin
         source ~/.bash_profile
+        ipython3 kernel install --user --name=test
         jupyter kernelspec list
-        jupyter nbconvert --ExecutePreprocessor.timeout=600 --ExecutePreprocessor.kernel_name=python2 --to html --execute examples/*.ipynb
+        jupyter nbconvert --ExecutePreprocessor.timeout=600 --ExecutePreprocessor.kernel_name=python3 --ExecutePreprocessor.allow_errors=True --to html --execute examples/*.ipynb
 
     # Upload notebooks
     - name: Upload notebooks
