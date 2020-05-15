@@ -80,8 +80,12 @@ jobs:
       - name: Save notebooks
         if: always()
         run: |
-          python3 -m pip install -e .
-          jupyter kernelspec list
+          cd /usr/local/Cellar/root/${ROOT_VERSION}
+          export PATH=${PWD}/bin:$(brew --cellar python@3.8)/$(ls $(brew --cellar python@3.8))/bin:${PATH}
+          export PYTHONPATH=${PWD}/lib/root:${PYTHONPATH}
+          export LD_LIBRARY_PATH=${PWD}/lib/root:${LD_LIBRARY_PATH}
+          echo ${PYTHONPATH}
+          cd -
           python3 -m jupyter nbconvert --ExecutePreprocessor.timeout=600 --ExecutePreprocessor.kernel_name=python3 --ExecutePreprocessor.allow_errors=True --to html --execute examples/*.ipynb
           
       # Upload notebooks
