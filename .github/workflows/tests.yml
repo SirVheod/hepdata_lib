@@ -132,7 +132,7 @@ jobs:
     - name: Save notebooks
       if: always()
       run: |
-        python -m pip install jupyter
+        python -m pip install wheel jupyter
         python -m jupyter nbconvert --to html examples/*.ipynb
 
     # Upload notebooks
