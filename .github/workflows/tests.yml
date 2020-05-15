@@ -75,7 +75,7 @@ jobs:
           cd -
           python3 -m pip install pytest ipykernel papermill jupyter_client nbconvert
           python3 setup.py test
-          python3 jupyter nbconvert --to html --execute examples/*.ipynb
+          jupyter nbconvert --to html --execute examples/*.ipynb
           
       # Save notebooks
       - name: Save notebooks
