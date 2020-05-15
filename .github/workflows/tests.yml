@@ -28,7 +28,7 @@ jobs:
         - name: Save notebooks
           if: always()
           run: |
-            python -m jupyter nbconvert --to html --execute examples/*.ipynb
+            python -m jupyter --ExecutePreprocessor.timeout=600 --ExecutePreprocessor.allow_errors=True nbconvert --to html --execute examples/*.ipynb
             
         # Upload notebooks
         - name: Upload notebooks
@@ -133,11 +133,10 @@ jobs:
     - name: Save notebooks
       if: always()
       run: |
+        source root/bin/thisroot.sh
         export PATH=$PATH:~/.local/bin
         source ~/.bash_profile
-        ipython3 kernel install --user --name=test
-        jupyter kernelspec list
-        jupyter nbconvert --ExecutePreprocessor.timeout=600 --ExecutePreprocessor.kernel_name=python3 --ExecutePreprocessor.allow_errors=True --to html --execute examples/*.ipynb
+        jupyter nbconvert --ExecutePreprocessor.timeout=600 --ExecutePreprocessor.kernel_name=python2 --ExecutePreprocessor.allow_errors=True --to html --execute examples/*.ipynb
 
     # Upload notebooks
     - name: Upload notebooks
