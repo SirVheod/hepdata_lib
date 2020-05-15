@@ -76,11 +76,6 @@ jobs:
       - name: Save notebooks
         if: always()
         run: |
-          ROOT_VERSION=6.20.04_1
-          cd /usr/local/Cellar/root/${ROOT_VERSION}
-          export PATH=${PWD}/bin:$(brew --cellar python@3.8)/$(ls $(brew --cellar python@3.8))/bin:${PATH}
-          export PYTHONPATH=${PWD}/lib/root:${PYTHONPATH}
-          export LD_LIBRARY_PATH=${PWD}/lib/root:${LD_LIBRARY_PATH}
           echo ${PYTHONPATH}
           python3 -m pip install jupyter_client ipykernel nbconvert
           python3 -m ipykernel install --user
