@@ -138,7 +138,7 @@ jobs:
       run: |
         export PATH=$PATH:~/.local/bin
         source ~/.bash_profile
-        sudo apt-get install python3-setuptools
+        sudo apt-get upgrade python3
         python3 -m pip install wheel ipykernel
         python3 -m ipykernel install --user
         python -m jupyter nbconvert --to html --execute examples/*.ipynb
