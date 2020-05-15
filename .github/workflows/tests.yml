@@ -75,7 +75,8 @@ jobs:
           cd -
           python3 -m pip install pytest ipykernel papermill jupyter_client nbconvert
           python3 setup.py test
-          jupyter nbconvert --to html --execute examples/*.ipynb
+          jupyter kernelspec
+          python3 -m jupyter nbconvert --to html --execute examples/*.ipynb
           
       # Save notebooks
       - name: Save notebooks
@@ -138,6 +139,7 @@ jobs:
       run: |
         export PATH=$PATH:~/.local/bin
         source ~/.bash_profile
+        jupyter kernelspec
         jupyter nbconvert --ExecutePreprocessor.timeout=600 --ExecutePreprocessor.kernel_name=python2 --to html --execute examples/*.ipynb
 
     # Upload notebooks
