@@ -76,10 +76,17 @@ jobs:
       - name: Save notebooks
         if: always()
         run: |
-          python3 -m pip install -e .
+          ROOT_VERSION=6.20.04_1
+          cd /usr/local/Cellar/root/${ROOT_VERSION}
+          export PATH=${PWD}/bin:$(brew --cellar python@3.8)/$(ls $(brew --cellar python@3.8))/bin:${PATH}
+          export PYTHONPATH=${PWD}/lib/root:${PYTHONPATH}
+          export LD_LIBRARY_PATH=${PWD}/lib/root:${LD_LIBRARY_PATH}
+          echo ${PYTHONPATH}
           python3 -m pip install jupyter_client ipykernel nbconvert
           python3 -m ipykernel install --user
+          python3 -m pip install -e .
           python3 -m jupyter nbconvert --to html --execute examples/*.ipynb
+          
       # Upload notebooks
       - name: Upload notebooks
         if: always()
@@ -96,6 +103,7 @@ jobs:
           python3 -m pip install -e .
           python3 -m pylint hepdata_lib/*.py
           python3 -m pylint tests/*.py --rcfile=tests/pylintrc
+          
  # This is a job for linux python2.7 tests
   linuxpy27:
     runs-on: ubuntu-16.04
@@ -130,10 +138,11 @@ jobs:
       run: |
         export PATH=$PATH:~/.local/bin
         source ~/.bash_profile
-        python3 -m pip install -e .
+        python -m pip install setuptools
         python3 -m pip install setuptools ipykernel
         python3 -m ipykernel install --user
         python -m jupyter nbconvert --to html --execute examples/*.ipynb
+
     # Upload notebooks
     - name: Upload notebooks
       if: always()
