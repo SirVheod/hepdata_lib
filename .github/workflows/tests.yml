@@ -133,7 +133,7 @@ jobs:
       if: always()
       run: |
         export PYTHONPATH="${PYTHONPATH}:/home/runner/.local/bin"
-        python -m pip install wheel nbconvert
+        python -m pip install nbconvert
         python -m jupyter nbconvert --to html examples/*.ipynb
 
     # Upload notebooks
