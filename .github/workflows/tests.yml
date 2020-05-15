@@ -77,6 +77,7 @@ jobs:
         if: always()
         run: |
           python3 -m pip install jupyter_client ipykernel nbconvert
+          python3 -m ipykernel install --user
           python3 -m jupyter nbconvert --to html --execute examples/*.ipynb
       # Upload notebooks
       - name: Upload notebooks
@@ -129,6 +130,7 @@ jobs:
         export PATH=$PATH:~/.local/bin
         source ~/.bash_profile
         python -m pip install ipykernel
+        python -m ipykernel install --user
         python -m jupyter nbconvert --to html --execute examples/*.ipynb
     # Upload notebooks
     - name: Upload notebooks
